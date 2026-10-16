@@ -25,12 +25,9 @@ class TerraformReportTab(
     buildManager,
     descriptor.getPluginResourcesPath("terraformChangesReport.jsp")
 ) {
-    init {
-        addCssFile(descriptor.getPluginResourcesPath("terraformChangesReport.css"))
-    }
-
     override fun isAvailableFor(build: SBuild): Boolean {
-        return getTerraformReportFromBuildArtifacts(build) != null
+        return build.getBuildFeaturesOfType(TerraformFeatureConstants.FEATURE_TYPE).isNotEmpty() &&
+                getTerraformReportFromBuildArtifacts(build) != null
     }
 
     private fun getTerraformReportFromBuildArtifacts(build: SBuild): BuildArtifact? {
